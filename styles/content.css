@@ -111,7 +111,7 @@
     .updateSettingCrossUserWarningContainer, #handlersView {
       border-radius: 0 !important;
     }
-    button:not(.primary):not(:hover):not(:active) {
+    button:not(.primary):not(.toggle-button):not([role="switch"]):not(:hover):not(:active) {
       background-color: transparent !important;
       border-color: light-dark(rgba(35,49,55,.25), rgba(181,214,230,.28)) !important;
       box-shadow: none !important;

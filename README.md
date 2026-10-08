@@ -1,10 +1,10 @@
 # Vesperwing Glass for Thunderbird
 
-Transparent pearl and midnight surfaces, teal accents, readable inbox cards, and a clear toolbar/status bar. Built for Thunderbird 157 on Kubuntu / KDE Plasma. The full appearance is delivered by profile CSS and a backup-aware installer; no theme XPI is required.
+Transparent pearl and midnight surfaces, teal accents, readable inbox cards, and a clear toolbar/status bar. Built for Thunderbird 157 on Kubuntu / KDE Plasma. The extension delivers the full appearance without profile stylesheets. A backup-aware CSS installer is also available.
 
 ## Preview
 
-These previews use a separate profile with fictional messages and no real accounts. They illustrate the design; some details predate the latest light-mode refinements.
+These previews use a separate profile with fictional messages and no real accounts. The mail, light Settings, compose and print previews show the 0.2.0 refinement.
 
 | Dark | Light |
 |---|---|
@@ -12,9 +12,26 @@ These previews use a separate profile with fictional messages and no real accoun
 
 | Settings | Print preview |
 |---|---|
-| ![Settings](screenshots/settings.png) | ![Print preview](screenshots/print-preview.png) |
+| ![Settings](screenshots/settings-light.png) | ![Print preview](screenshots/print-preview.png) |
 
-## Install
+## Install the extension (recommended)
+
+1. Build with `python3 build_extension.py`, or download the extension XPI from [Releases](https://github.com/sgerner/vesperwing-glass/releases).
+2. Open **Add-ons and Themes → Extensions → gear → Install Add-on From File** and select `vesperwing-glass-extension-0.2.0.xpi`.
+3. Review the unrestricted-access permission required by Thunderbird Experiments. The bundled implementation registers styles and identifies application tabs; it collects no data and does not read mail or contact the network.
+4. Choose Thunderbird's built-in **Light** or **Dark** theme. Configure KDE blur below.
+
+Disable the extension to restore the native appearance. No advanced configuration preference is required. Tested on Thunderbird 157.0.1; other major versions are deliberately excluded.
+
+### Migrating from profile CSS
+
+Restore an installer-managed installation first using the command below. For manually installed Aurora/Vesperwing styles, quit Thunderbird, back up `chrome/userChrome.css` and `chrome/userContent.css`, and remove their glass imports. Preserve unrelated customizations. Set `toolkit.legacyUserProfileCustomizations.stylesheets` to `false` if no other profile styles need it, then restart. Avoid loading both copies of the design.
+
+| Add-ons | Compose |
+|---|---|
+| ![Light Add-ons](screenshots/addons-light.png) | ![Light compose with fictional text](screenshots/compose-light.png) |
+
+## Install with profile CSS (alternative)
 
 Requires Python 3 and a local Thunderbird profile. No administrator privileges or Python dependencies are needed.
 
@@ -82,18 +99,13 @@ Reduced-transparency and forced-color rules provide more solid surfaces. Thunder
 - `styles/glass.css`: application chrome and compose-window styling.
 - `styles/content.css`: settings, add-ons, print and editor content styling.
 - `build_release.py`: creates the download archive.
-- `docs/extension-feasibility.md`: assessment of an optional future extension.
+- `docs/extension-feasibility.md`: Experiment permissions and submission notes.
+- `docs/runtime-test.md`: verified behavior and remaining acceptance gaps.
 
 ## License
 
 [0BSD](LICENSE): use, modify and redistribute freely, including commercially. Thunderbird and KDE names belong to their respective owners.
 
-## Optional extension candidate
+## Extension status
 
-A separate extension can deliver the same two stylesheets without profile modifications, using a privileged Experiment. A buildable **0.1.0 development candidate** is included; it has not yet passed standalone runtime acceptance checks. It follows your selected Light/Dark theme and removes its registered sheets when disabled. Read [feasibility, permissions and submission notes](docs/extension-feasibility.md) before using it.
-
-```sh
-python3 build_extension.py
-```
-
-The GitHub installer remains the established distribution. The extension requires Thunderbird's unrestricted-access permission and manual add-on review; it is not submitted to Thunderbird Add-ons yet.
+Version 0.2.0 was exercised with legacy stylesheet loading disabled: light/dark mail, translucent Settings/Add-ons, separate light compose editing and opaque print paper. See [runtime checks and remaining gaps](docs/runtime-test.md). This uses a privileged Experiment and requires manual Thunderbird Add-ons review; it has not been submitted or approved there.
