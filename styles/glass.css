@@ -7,13 +7,13 @@
       color-scheme: light dark;
       --ag-ink: light-dark(#25292b, #f6fafc);
       --ag-muted: light-dark(#485156, #d5e2e9);
-      --ag-glass: light-dark(rgba(249,248,245,.58), rgba(15,27,36,.38));
-      --ag-sidebar: light-dark(rgba(244,243,239,.66), rgba(12,23,32,.42));
+      --ag-glass: light-dark(rgba(249,248,245,.52), rgba(15,27,36,.38));
+      --ag-sidebar: light-dark(rgba(244,243,239,.60), rgba(12,23,32,.42));
       --ag-rail: light-dark(rgba(239,238,233,.44), rgba(12,23,32,.28));
       --ag-bar: light-dark(rgba(251,250,247,.30), rgba(22,36,47,.48));
       --ag-chrome: light-dark(rgba(248,247,243,.16), rgba(22,36,47,.34));
       --ag-paper: light-dark(#f7f6f2, #14222c);
-      --ag-message: light-dark(rgba(250,249,246,.64), rgba(14,24,32,.46));
+      --ag-message: light-dark(rgba(242,248,247,.18), rgba(14,24,32,.46));
       --ag-line: light-dark(rgba(48,53,56,.16), rgba(181,214,230,.32));
       --ag-hover: light-dark(rgba(255,255,252,.30), rgba(159,212,230,.16));
       --ag-select: light-dark(rgba(176,214,212,.66), rgba(45,111,132,.64));
@@ -245,15 +245,15 @@
       border-radius: 0;
     }
     #status-bar :is(.statusbarpanel, #statusTextBox) {
-      color: #f6fafc !important;
-      text-shadow: 0 1px 3px rgba(0,0,0,.85) !important;
+      color: #263d44 !important;
+      text-shadow: none !important;
     }
     /* Light glass: concentrate the readable tint in cards, leaving their gaps airy. */
     :root {
       --ag-ink: #20292d;
       --ag-muted: #414e54;
       --ag-glass: rgba(249,248,245,.48);
-      --ag-sidebar: rgba(248,247,243,.68);
+      --ag-sidebar: rgba(248,247,243,.60);
       --ag-line: rgba(35,49,55,.12);
       --ag-hover: rgba(255,255,252,.66);
       --ag-select: rgba(214,237,232,.86);
@@ -361,6 +361,12 @@
   @media print {
     #messagepane, browser[id^="preferencesTabBrowser"] { opacity: 1 !important; }
     :root#messengerWindow { background: white !important; color: black !important; }
+  }
+}
+
+@-moz-document url-prefix("about:message"), url("chrome://messenger/content/aboutMessage.xhtml"), url("chrome://messenger/content/messenger.xhtml"), url("chrome://messenger/content/messageWindow.xhtml") {
+  @media screen and (prefers-color-scheme: light) and (forced-colors: none) and (prefers-reduced-transparency: no-preference) {
+    #messagepane { opacity: .54 !important; }
   }
 }
 
@@ -493,20 +499,26 @@
   }
 }
 
+/* Thunderbird theme color-scheme can differ from the operating system. */
 @-moz-document url("chrome://messenger/content/messenger.xhtml") {
-  @media screen and (prefers-color-scheme: light) and (forced-colors: none) {
-    #unifiedToolbar :is(button, toolbarbutton), #titlebar .titlebar-button,
-    #tabs-toolbar .tabmail-tab:not([selected="true"]):not([visuallyselected="true"]) {
-      color: #f6fafc !important;
-      text-shadow: 0 1px 3px rgba(0,0,0,.85) !important;
+  @media screen and (forced-colors: none) {
+    :root#messengerWindow:is([theme-effective-id="thunderbird-compact-light@mozilla.org"], [lwtheme]:not([lwtheme-brighttext])) {
+      background: linear-gradient(125deg, rgba(164,235,221,.44), rgba(231,201,238,.39) 55%, rgba(160,205,239,.42)) !important;
+    }
+    :root#messengerWindow:is([theme-effective-id="thunderbird-compact-light@mozilla.org"], [lwtheme]:not([lwtheme-brighttext])) #navigation-toolbox,
+    :root#messengerWindow:is([theme-effective-id="thunderbird-compact-light@mozilla.org"], [lwtheme]:not([lwtheme-brighttext])) #status-bar {
+      background: rgba(229,241,239,.48) !important;
+      color: #263d44 !important;
+    }
+    :root#messengerWindow:is([theme-effective-id="thunderbird-compact-light@mozilla.org"], [lwtheme]:not([lwtheme-brighttext])) #tabs-toolbar { background: rgba(231,241,241,.42) !important; }
+    :root#messengerWindow:is([theme-effective-id="thunderbird-compact-light@mozilla.org"], [lwtheme]:not([lwtheme-brighttext])) :is(#unifiedToolbar, #titlebar, #status-bar, #tabs-toolbar) :is(button, toolbarbutton, .titlebar-button, .tabmail-tab, hbox, .statusbarpanel),
+    :root#messengerWindow:is([theme-effective-id="thunderbird-compact-light@mozilla.org"], [lwtheme]:not([lwtheme-brighttext])) #statusTextBox {
+      color: #263d44 !important;
+      text-shadow: none !important;
       --toolbarbutton-icon-fill: currentColor !important;
     }
-    #tabs-toolbar .tabmail-tab:is([selected="true"], [visuallyselected="true"]),
-    #tabs-toolbar .tabmail-tab:is([selected="true"], [visuallyselected="true"]) .tab-background {
-      background: rgba(246,252,249,.86) !important;
-      color: #20292d !important;
-      box-shadow: inset 0 2px #126a70 !important;
-      text-shadow: none !important;
-    }
+  }
+  @media screen and (forced-colors: none) and (prefers-reduced-transparency: no-preference) {
+    :root#messengerWindow:is([theme-effective-id="thunderbird-compact-light@mozilla.org"], [lwtheme]:not([lwtheme-brighttext])) #messagepane { opacity: .54 !important; }
   }
 }

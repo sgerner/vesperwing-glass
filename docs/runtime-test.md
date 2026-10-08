@@ -35,3 +35,10 @@ Computer-use checks in the same fictional profile, still with legacy profile CSS
 Remaining: complex authored/received HTML and quoted content, uninstall cleanup, actual forced-colors/reduced-transparency settings. Native OS dialogs keep the desktop appearance. Whole-frame blending also fades glyphs/images locally; it does not alter sent message HTML. No claim of exhaustive edge-case coverage or Add-ons approval is made.
 
 - Final 0.2.0 disable/re-enable was exercised: native opaque canvases return when disabled, utility glass returns on enable. This revealed a generic button rule clearing the native toggle backing; the final rule excludes `.toggle-button` and switch controls.
+
+## Refinement 0.2.1
+
+- Built-in Light was visually reviewed in the fictional profile over a dark backdrop. Title/tab/status text now follows Thunderbird's selected theme rather than an OS media query; reader frame opacity is 58% and underlying light message surface is 18%.
+- Primary profile updated to 0.2.1 and restarted. Add-ons switches visibly have teal tracks and white round thumbs; enabled extension/version confirmed by accessibility output.
+- New installs request the built-in Dark theme through AddonManager when startupReason is ADDON_INSTALL. Updates/restarts do not change the chosen theme. This new-install path is source-reviewed, not yet exercised as a fresh installation.
+- Follow-up: user requested square switch tracks and a modest further reduction in light opacity. Reader opacity is now 54%, light sidebar 60%, and the color wash and bars are less opaque. These final adjustments were packaged; no additional runtime checks were requested.

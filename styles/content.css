@@ -42,7 +42,10 @@
     }
     /* Native switch thumbs otherwise inherit our transparent canvas token. */
     moz-toggle {
-      --toggle-dot-background-color-on-pressed: light-dark(#faf9f6, #14222c) !important;
+      --toggle-dot-background-color-on-pressed: #ffffff !important;
+      --toggle-background-color-pressed: #096b78 !important;
+      --toggle-background-color-pressed-hover: #075766 !important;
+      --toggle-background-color-pressed-active: #064b58 !important;
       --toggle-border-radius: 0 !important;
     }
     #main > addon-list > section, addon-list > section,
@@ -109,7 +112,7 @@
       --border-radius-large: 0 !important;
       --button-border-radius: 0 !important;
     }
-    button, input:not([type="radio"]):not([type="checkbox"]), select,
+    button:not(.toggle-button):not([role="switch"]), input:not([type="radio"]):not([type="checkbox"]), select,
     menulist, .category, .card, .addon, .addon-card-collapsed,
     .category[selected], radio, .radio-check, .view-style-item,
     .sync-panel, .qr-panel, .qr-subpanel, .info-box-container,
