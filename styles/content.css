@@ -82,6 +82,7 @@
       caret-color: light-dark(#07566d, #9be1ef) !important;
     }
     ::selection {
+      color: light-dark(#182b33, #ffffff) !important;
       background: light-dark(rgba(32,125,151,.32), rgba(86,166,190,.48)) !important;
     }
   }

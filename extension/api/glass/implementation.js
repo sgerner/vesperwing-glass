@@ -26,6 +26,18 @@ var vesperwingStyles = class extends ExtensionAPI {
       ExtensionSupport.registerWindowListener(this.extension.id, {
         chromeURLs: ["chrome://messenger/content/messenger.xhtml"],
         onLoadWindow: window => {
+          const syncTheme = () => {
+            const activeTheme = Services.prefs.getCharPref("extensions.activeThemeID", "");
+            const theme = activeTheme === "thunderbird-compact-light@mozilla.org"
+              ? "light"
+              : activeTheme === "thunderbird-compact-dark@mozilla.org"
+                ? "dark"
+                : "system";
+            window.document.documentElement.setAttribute("data-vesperwing-theme", theme);
+          };
+          const themeObserver = { observe: syncTheme };
+          syncTheme();
+          Services.prefs.addObserver("extensions.activeThemeID", themeObserver);
           const classify = () => {
             for (const browser of window.document.querySelectorAll("browser")) {
               const uri = browser.currentURI?.spec || "";
@@ -41,10 +53,16 @@ var vesperwingStyles = class extends ExtensionAPI {
             onTabOpened: classify, onTabTitleChanged: classify };
           window.document.getElementById("tabmail").registerTabMonitor(monitor);
           window.addEventListener("load", classify, true);
-          this.windows.set(window, { classify, monitor });
+          this.windows.set(window, { classify, monitor, themeObserver });
           classify();
         },
-        onUnloadWindow: window => this.windows.delete(window),
+        onUnloadWindow: window => {
+          const state = this.windows.get(window);
+          if (state?.themeObserver) {
+            Services.prefs.removeObserver("extensions.activeThemeID", state.themeObserver);
+          }
+          this.windows.delete(window);
+        },
       });
     } catch (error) {
       this.removeSheets();
@@ -63,13 +81,15 @@ var vesperwingStyles = class extends ExtensionAPI {
 
   onShutdown(isAppShutdown) {
     ExtensionSupport.unregisterWindowListener(this.extension.id);
-    for (const [window, { classify, monitor }] of this.windows || []) {
+    for (const [window, { classify, monitor, themeObserver }] of this.windows || []) {
+      Services.prefs.removeObserver("extensions.activeThemeID", themeObserver);
       if (window.closed) continue;
       window.removeEventListener("load", classify, true);
       window.document.getElementById("tabmail").unregisterTabMonitor(monitor);
       for (const browser of window.document.querySelectorAll("[data-vesperwing-utility]")) {
         browser.removeAttribute("data-vesperwing-utility");
       }
+      window.document.documentElement.removeAttribute("data-vesperwing-theme");
     }
     this.windows?.clear();
     this.removeSheets();
