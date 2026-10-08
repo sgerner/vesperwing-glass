@@ -24,15 +24,15 @@ The CSS scopes itself to Thunderbird application URLs; it does not rewrite messa
 python3 build_extension.py
 ```
 
-Output: `dist/vesperwing-glass-extension-0.2.1.xpi`.
+Output for version 0.2.11: `dist/vesperwing-glass-extension-0.2.11.xpi`.
 
-**Version 0.2.0 has been tested in a running isolated profile with legacy stylesheet loading disabled.** Before evaluating it, restore the profile CSS installation, then install the XPI through Add-ons and Themes → Install Add-on From File. Do not layer both methods when checking extension coverage. The package deliberately targets only Thunderbird 157.* until other versions are assessed.
+The runtime report records historical checks by version; it does not establish that version 0.2.11 has been exercised. Before evaluating a build, restore the profile CSS installation, then install the XPI through Add-ons and Themes → Install Add-on From File. Do not layer both methods when checking extension coverage. The package deliberately targets only Thunderbird 157.* until other versions are assessed.
 
-Experiments receive Thunderbird's **full, unrestricted access to Thunderbird and your computer** permission. Our implementation does not read messages, access the network, write profile files; version 0.2.1 selects the built-in Dark theme once on first installation, but Thunderbird cannot express a narrower permission for this mechanism. A user must decide whether to trust the add-on before installing.
+Experiments receive Thunderbird's **full, unrestricted access to Thunderbird and your computer** permission. Our implementation does not read messages, access the network, or write profile files. A new installation selects the built-in Dark theme once; updates and restarts preserve the user's later choice. Thunderbird cannot express a narrower permission for this mechanism. A user must decide whether to trust the add-on before installing.
 
 ## Before public add-on submission
 
-See [the runtime report](runtime-test.md) for completed checks. Remaining acceptance work includes complex HTML/quoted messages, live accessibility modes, uninstall cleanup and the uninstall cleanup. Keep sample mail fictional and document reproduction steps for reviewers.
+See [the runtime report](runtime-test.md) for completed checks. Remaining acceptance work includes complex HTML/quoted messages, live accessibility modes, and uninstall cleanup. Keep sample mail fictional and document reproduction steps for reviewers.
 
 The current [Thunderbird submission tooling](https://github.com/thunderbird/webext-linter/blob/main/assets/registry.yaml) restricts new Experiment submissions to unmodified published API drafts. Our custom API therefore needs an accepted API route or explicit reviewer guidance before catalog submission. Experiment add-ons also require manual review; approval is not guaranteed. Supply this readable source, the build command, the supported version, and explain why ordinary theme/content APIs cannot style every application surface. Privacy disclosure: no data is collected, stored or transmitted by the add-on.
 
