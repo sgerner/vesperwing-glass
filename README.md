@@ -105,27 +105,13 @@ Bug reports, accessibility feedback, screenshots and focused pull requests are w
 
 Use fictional mail and `example.invalid` addresses for screenshots. Never upload real profiles, messages, credentials or account details. Contributions use the project's [0BSD license](LICENSE). Prefer square edges, restrained color and clear focus/selection states; preserve the established Dark palette when refining Light.
 
-## Publishing to Thunderbird Add-ons
-
-**The current custom Experiment is not ready for a normal catalog submission.** Thunderbird's [current submission tooling](https://github.com/thunderbird/webext-linter/blob/main/assets/registry.yaml) says new Experiment submissions are accepted only when using unmodified copies of the latest published API drafts. Our `vesperwingStyles` implementation is a custom API. Check with the [Thunderbird add-on community](https://developer.thunderbird.net/add-ons/community) before uploading; acceptance is not established by successful local installation.
-
-The next step is to ask whether the bundled stylesheet mechanism can use an accepted [published API draft](https://github.com/thunderbird/webext-experiments), or propose one for review. Until that is resolved, GitHub plus the XPI/CSS installer remains the distribution route. Remaining runtime acceptance gaps are listed in [the runtime report](docs/runtime-test.md).
-
-When eligible:
-
-1. Build the XPI with `python3 build_extension.py` and retain the exact source revision and build instructions.
-2. Sign in to the [Thunderbird Add-ons Developer Hub](https://addons.thunderbird.net/en-US/developers/), choose submission of a new add-on, and upload the **extension** XPI (not a theme or the CSS installer ZIP). Complete any developer agreement yourself.
-3. Resolve validation findings. Provide the name, summary, full description, support/repository links, 0BSD license and sanitized screenshots. Describe Thunderbird 157 compatibility, KDE compositor setup, unrestricted Experiment permission, and the one-time switch to Dark on installation.
-4. Provide a privacy disclosure stating that the add-on collects, stores and transmits no user data. Explain that it applies bundled local CSS and classifies internal Settings/Add-ons tabs.
-5. Supply readable source/build information and reviewer reproduction steps. Explain why standard theme APIs cannot cover the nested application pages. Experiment extensions require [manual review](https://thunderbird.github.io/atn-review-policy/); answer reviewer requests promptly and submit focused corrections.
-
 ## Project files
 
 - `install.py`: installer and restoration, Python standard library only.
 - `styles/glass.css`: application chrome and compose-window styling.
 - `styles/content.css`: settings, add-ons, print and editor content styling.
 - `build_release.py`: creates the download archive.
-- `docs/extension-feasibility.md`: Experiment permissions and submission notes.
+- `docs/extension-feasibility.md`: extension architecture and lifecycle.
 - `docs/runtime-test.md`: verified behavior and remaining acceptance gaps.
 
 ## License
@@ -134,7 +120,7 @@ When eligible:
 
 ## Extension status
 
-Version 0.2.0 was exercised with legacy stylesheet loading disabled: light/dark mail, translucent Settings/Add-ons, separate light compose editing and opaque print paper. See [runtime checks and remaining gaps](docs/runtime-test.md). This uses a privileged custom Experiment and has not been submitted or approved by Thunderbird Add-ons. See the publishing section for the current API eligibility restriction.
+Version 0.2.0 was exercised with legacy stylesheet loading disabled: light/dark mail, translucent Settings/Add-ons, separate light compose editing and opaque print paper. See [runtime checks and remaining gaps](docs/runtime-test.md).
 
 ### Light glass and color backdrops
 
