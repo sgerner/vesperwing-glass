@@ -4,9 +4,9 @@
 
 The standard theme API is insufficient for the complete design. A theme experiment attaches CSS to theme consumer documents; the design also needs nested content documents.
 
-A lifecycle-only MailExtension Experiment can instead register the two existing, URL-scoped stylesheets with `nsIStyleSheetService.USER_SHEET`. That service applies sheets to existing and future documents, including nested application pages. It reproduces the same CSS approach without writing `userChrome.css`, `userContent.css`, or enabling legacy profile styles.
+A small MailExtension Experiment can instead register the two existing, URL-scoped stylesheets with `nsIStyleSheetService.USER_SHEET`. That service applies sheets to existing and future documents, including nested application pages. It reproduces the same CSS approach without writing `userChrome.css`, `userContent.css`, or enabling legacy profile styles.
 
-The extension in `extension/` implements this route. It follows the user's chosen Light/Dark theme, registers only two fixed bundled files, rolls back partial registration on failure, and unregisters its own sheets on disable/uninstall. It invalidates the startup cache when unloaded outside application shutdown.
+The extension in `extension/` implements this route. It follows the user's chosen Light/Dark theme, registers only two fixed bundled files, rolls back partial registration on failure, and unregisters its own sheets on disable/uninstall. It also marks Settings/Add-ons browser elements from their current application URI, because Thunderbird does not consistently expose a `src` attribute. Window/tab listeners and these markers are removed on shutdown. It invalidates the startup cache when unloaded outside application shutdown.
 
 ## Coverage
 
@@ -24,15 +24,15 @@ The CSS scopes itself to Thunderbird application URLs; it does not rewrite messa
 python3 build_extension.py
 ```
 
-Output: `dist/vesperwing-glass-extension-0.1.0.xpi`.
+Output: `dist/vesperwing-glass-extension-0.2.0.xpi`.
 
-**This is a development candidate, not yet verified in a running profile without the installed CSS.** Before evaluating it, restore the profile CSS installation, then install the XPI through Add-ons and Themes → Install Add-on From File. Do not layer both methods when checking extension coverage. The package deliberately targets only Thunderbird 157.* until other versions are assessed.
+**Version 0.2.0 has been tested in a running isolated profile with legacy stylesheet loading disabled.** Before evaluating it, restore the profile CSS installation, then install the XPI through Add-ons and Themes → Install Add-on From File. Do not layer both methods when checking extension coverage. The package deliberately targets only Thunderbird 157.* until other versions are assessed.
 
 Experiments receive Thunderbird's **full, unrestricted access to Thunderbird and your computer** permission. Our implementation does not read messages, access the network, change preferences or write profile files, but Thunderbird cannot express a narrower permission for this mechanism. A user must decide whether to trust the add-on before installing.
 
 ## Before public add-on submission
 
-The runtime acceptance work remains: evaluate a disposable profile with legacy stylesheet support disabled, exercise light/dark three-column mail, HTML and plain-text messages, compose, settings, add-ons and print, then verify disable/uninstall removes the appearance and restart/update reapplies it. Evaluate high contrast and reduced transparency. Keep sample mail fictional and document reproduction steps for reviewers.
+See [the runtime report](runtime-test.md) for completed checks. Remaining acceptance work includes complex HTML/quoted messages, live accessibility modes, uninstall cleanup and the uninstall cleanup. Keep sample mail fictional and document reproduction steps for reviewers.
 
 Experiment add-ons require manual Thunderbird Add-ons review. Approval is not guaranteed. Supply this readable source, the build command, the supported version, and explain why ordinary theme/content APIs cannot style every application surface. Privacy disclosure: no data is collected, stored or transmitted by the add-on.
 

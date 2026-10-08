@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 """Build the experimental add-on from readable sources and shared CSS."""
+import json
 from pathlib import Path
 from zipfile import ZipFile, ZIP_DEFLATED
 
 root = Path(__file__).resolve().parent
-output = root / 'dist' / 'vesperwing-glass-extension-0.1.0.xpi'
+version = json.loads((root / 'extension' / 'manifest.json').read_text())['version']
+output = root / 'dist' / f'vesperwing-glass-extension-{version}.xpi'
 output.parent.mkdir(exist_ok=True)
 with ZipFile(output, 'w', compression=ZIP_DEFLATED) as archive:
     for path in sorted((root / 'extension').rglob('*')):

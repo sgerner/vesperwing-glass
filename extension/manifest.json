@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Vesperwing Glass for Thunderbird",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Transparent light/dark interface styling for Thunderbird on KDE Plasma. Uses a privileged experiment to apply bundled local stylesheets.",
   "homepage_url": "https://github.com/sgerner/vesperwing-glass",
   "browser_specific_settings": {
@@ -15,10 +15,18 @@
     "vesperwingStyles": {
       "schema": "api/glass/schema.json",
       "parent": {
-        "scopes": ["addon_parent"],
-        "paths": [["vesperwingStyles"]],
+        "scopes": [
+          "addon_parent"
+        ],
+        "paths": [
+          [
+            "vesperwingStyles"
+          ]
+        ],
         "script": "api/glass/implementation.js",
-        "events": ["startup"]
+        "events": [
+          "startup"
+        ]
       }
     }
   }
