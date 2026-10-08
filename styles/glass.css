@@ -50,7 +50,7 @@
       --focus-outline-color: var(--ag-accent) !important;
 
     }
-    :root#messengerWindow > body, #messengerBody, #tabmail, #tabpanelcontainer { background: transparent !important; }
+    :root#messengerWindow > body, #messengerBody, #tabmail, #tabpanelcontainer, .contentTabInstance, .contentTabInstance > stack, [id^="preferencesTabWrapper"], [id^="contentTabWrapper"] { background: transparent !important; }
     /* The shell is one clear drag surface. Only the search field paints glass;
      * clearing every wrapper avoids the large rectangle and stacked alpha. */
     #navigation-toolbox, #titlebar, unified-toolbar, #unifiedToolbarContainer,
@@ -123,7 +123,7 @@
     #spacesToolbar .spaces-toolbar-button {
       color: var(--ag-muted) !important;
       opacity: 1 !important;
-      border-radius: 10px !important;
+      border-radius: 0;
       outline-offset: 2px !important;
     }
     #spacesToolbar .spaces-toolbar-button:hover:not(.current) {
@@ -160,7 +160,7 @@
       background: var(--ag-field) !important;
       color: var(--ag-ink) !important;
       border: 1px solid var(--ag-line) !important;
-      border-radius: 9px !important;
+      border-radius: 0;
       box-shadow: 0 2px 6px rgba(0,0,0,.06) !important;
     }
     #folderPane { background: var(--ag-sidebar) !important; color: var(--ag-ink) !important; }
@@ -178,7 +178,7 @@
       color: var(--ag-ink) !important;
       border: 1px solid light-dark(rgba(48,53,56,.12), rgba(181,214,230,.18)) !important;
       border-bottom-color: var(--ag-line) !important;
-      border-radius: 8px !important;
+      border-radius: 0;
       box-shadow: 0 2px 8px rgba(18,58,75,.06) !important;
     }
     #threadTree .card-layout:hover .card-container,
@@ -203,7 +203,7 @@
       background: light-dark(#0b6078, #9be1ef) !important;
       color: light-dark(#fff, #102732) !important;
       border: 1px solid var(--ag-accent) !important;
-      border-radius: 9px !important;
+      border-radius: 0;
       box-shadow: 0 2px 7px rgba(15,46,58,.16) !important;
     }
     #folderPaneWriteMessage:hover:not(:disabled) {
@@ -216,21 +216,16 @@
     /* One glass layer; nested wrappers must not stack their opacity. */
     #messagePane, #messagepane, #messagepaneboxwrapper { background: transparent !important; }
     #messagepanebox { background: var(--ag-message) !important; color: var(--ag-ink) !important; }
-    /* Keep message text and images at full strength. The parent glass surface
-     * provides translucency without fading the entire email renderer. */
-    browser[id^="preferencesTabBrowser"] { opacity: .90 !important; }
-    /* Built-in content pages such as Add-ons Manager paint an opaque canvas.
-     * Blend those tab browsers with the backdrop while preserving mail and
-     * preferences, which have their own carefully tuned opacity. */
-    #tabmail browser:not(#messagepane):not([id^="preferencesTabBrowser"]) {
-      opacity: .82 !important;
-    }
+    /* Gecko can paint an opaque mail canvas. Blend only the reader frame;
+     * this also fades text/images, so accessibility and print restore opacity. */
+    #messagepane { opacity: .78 !important; }
+    browser[id^="preferencesTabBrowser"] { opacity: .78 !important; }
     #messageHeader { background: var(--ag-bar) !important; color: var(--ag-ink) !important; border-bottom: 1px solid var(--ag-line) !important; }
     #folderPaneSplitter, #messagePaneSplitter { background: var(--ag-line) !important; border: 0 !important; }
     .tabmail-tab[selected="true"], .tabmail-tab[visuallyselected="true"] {
       background: var(--ag-select) !important;
       color: var(--ag-ink) !important;
-      border-radius: 8px 8px 0 0 !important;
+      border-radius: 0;
     }
     #unifiedToolbar button:hover, #folderPaneHeaderBar button:hover { background-color: var(--ag-hover) !important; }
     :is(#unifiedToolbar, #folderPaneHeaderBar, #threadPaneHeaderBar) :is(button, input):focus-visible {
@@ -245,9 +240,9 @@
     #unifiedToolbar :is(button, toolbarbutton), #titlebar .titlebar-button,
     #status-bar :is(button, toolbarbutton),
     #tabs-toolbar .tabmail-tab:not([selected]) {
-      background-color: rgba(250,249,246,.58) !important;
+      background-color: transparent !important;
       color: #25292b !important;
-      border-radius: 5px !important;
+      border-radius: 0;
     }
     #status-bar :is(.statusbarpanel, #statusTextBox) {
       color: #f6fafc !important;
@@ -274,7 +269,7 @@
     #folderTree li.selected > .container {
       background: var(--ag-select) !important;
       box-shadow: inset 3px 0 var(--ag-accent) !important;
-      border-radius: 5px !important;
+      border-radius: 0;
     }
     #folderTree:focus-within li.selected > .container {
       outline: 1px solid #126a70 !important;
@@ -314,7 +309,7 @@
     #threadTree .card-container {
       background: rgba(253,252,249,.50) !important;
       border-color: rgba(255,255,252,.35) !important;
-      border-radius: 7px !important;
+      border-radius: 0;
       box-shadow: none !important;
     }
     #threadTree .card-container .date { color: #414e54 !important; }
@@ -333,19 +328,13 @@
     browser[id^="preferencesTabBrowser"] { opacity: 1 !important; }
   }
   @media screen and (prefers-reduced-transparency: reduce) {
-    #messagepane, browser[id^="preferencesTabBrowser"],
-    #tabmail browser:not(#messagepane):not([id^="preferencesTabBrowser"]) {
-      opacity: 1 !important;
-    }
+    #messagepane, browser[id^="preferencesTabBrowser"] { opacity: 1 !important; }
     :root { --ag-glass: var(--ag-paper); --ag-sidebar: var(--ag-paper); --ag-rail: var(--ag-paper); --ag-bar: var(--ag-paper); --ag-message: var(--ag-paper); }
     :root#messengerWindow, #paneLayout, #navigation-toolbox, #unifiedToolbar,
     #unifiedToolbarContent, #tabs-toolbar, #status-bar { background: var(--ag-paper) !important; }
   }
   @media (forced-colors: active) {
-    #messagepane, browser[id^="preferencesTabBrowser"],
-    #tabmail browser:not(#messagepane):not([id^="preferencesTabBrowser"]) {
-      opacity: 1 !important;
-    }
+    #messagepane, browser[id^="preferencesTabBrowser"] { opacity: 1 !important; }
     :root#messengerWindow, #paneLayout, #spacesToolbar {
       background: Canvas !important;
       background-image: none !important;
@@ -370,10 +359,7 @@
     }
   }
   @media print {
-    #messagepane, browser[id^="preferencesTabBrowser"],
-    #tabmail browser:not(#messagepane):not([id^="preferencesTabBrowser"]) {
-      opacity: 1 !important;
-    }
+    #messagepane, browser[id^="preferencesTabBrowser"] { opacity: 1 !important; }
     :root#messengerWindow { background: white !important; color: black !important; }
   }
 }
@@ -428,18 +414,18 @@
     #composeContentBox { background: transparent !important; }
     #messageArea { background: var(--ag-glass) !important; color: var(--ag-ink) !important; }
     /* Frame opacity also works when Gecko paints an opaque editor canvas.
-     * Keep it modest: the writing surface, glyphs and caret retain 88% strength. */
+     * The writing surface, glyphs and caret retain 76% strength. */
     #messageEditor {
       background: transparent !important;
       color: var(--ag-ink) !important;
-      opacity: .88 !important;
+      opacity: .76 !important;
     }
     #MsgHeadersToolbar :is(input, textbox, menulist, .address-row-input),
     #MsgHeadersToolbar :is(#msgIdentity, #toAddrInput, #ccAddrInput, #bccAddrInput, #replyAddrInput, #newsgroupsInput, #followupToInput, #msgSubject) {
       background: var(--ag-field) !important;
       color: var(--ag-ink) !important;
       border: 1px solid var(--ag-line) !important;
-      border-radius: 8px !important;
+      border-radius: 0;
       box-shadow: none !important;
     }
     #MsgHeadersToolbar label, #MsgHeadersToolbar description { color: var(--ag-muted) !important; }
@@ -448,7 +434,7 @@
     #composeToolbar2 #button-send {
       background: light-dark(#09616a, #9be1ef) !important;
       color: light-dark(#fff, #102732) !important;
-      border-radius: 8px !important;
+      border-radius: 0;
     }
     #compose-toolbox toolbarbutton:hover, #FormatToolbar toolbarbutton:hover,
     #MsgHeadersToolbar button:hover { background: var(--ag-hover) !important; }
@@ -470,5 +456,57 @@
   @media print {
     #messageEditor { opacity: 1 !important; }
     :root#msgcomposeWindow, #composeContentBox, #messageArea { background: white !important; color: black !important; }
+  }
+}
+
+/* Architectural edges: flat controls, explicit focus, and a single accent seam.
+ * No overlays are inserted over text or native click targets. */
+@-moz-document url("chrome://messenger/content/messenger.xhtml"), url-prefix("about:3pane"), url-prefix("about:message"), url("chrome://messenger/content/about3Pane.xhtml"), url("chrome://messenger/content/aboutMessage.xhtml"), url("chrome://messenger/content/messageWindow.xhtml"), url("chrome://messenger/content/messengercompose/messengercompose.xhtml") {
+  @media screen and (forced-colors: none) {
+    :is(button, toolbarbutton, input, textbox, menulist, .tab-background, .tabmail-tab, .card-container, .container, .search-bar) {
+      border-radius: 0 !important;
+    }
+    #folderPaneWriteMessage { padding-inline: 8px !important; }
+    #tabs-toolbar .tabmail-tab:not([selected="true"]):not([visuallyselected="true"]),
+    #tabs-toolbar .tabmail-tab:not([selected="true"]):not([visuallyselected="true"]) .tab-background {
+      background: transparent !important;
+      box-shadow: none !important;
+      border-color: transparent !important;
+    }
+    :is(#unifiedToolbar, #composeToolbar2, #FormatToolbar) :is(button, toolbarbutton):not(:hover):not(:active):not([checked="true"]):not(#button-send) {
+      background: transparent !important;
+      box-shadow: none !important;
+      border-color: transparent !important;
+    }
+    #threadPaneHeaderBar, #MsgHeadersToolbar {
+      border-bottom-color: color-mix(in srgb, var(--ag-accent) 32%, transparent) !important;
+      box-shadow: 0 1px 8px color-mix(in srgb, var(--ag-accent) 9%, transparent) !important;
+    }
+    /* Scope fading to application utility tabs, never arbitrary web content. */
+    browser[id^="preferencesTabBrowser"], browser[data-vesperwing-utility="true"],
+    browser[src^="chrome://mozapps/content/extensions/aboutaddons"] { opacity: .78 !important; }
+  }
+  @media (prefers-reduced-transparency: reduce), (forced-colors: active) {
+    browser[id^="preferencesTabBrowser"], browser[data-vesperwing-utility="true"],
+    browser[src^="chrome://mozapps/content/extensions/aboutaddons"] { opacity: 1 !important; }
+    #threadPaneHeaderBar, #MsgHeadersToolbar { box-shadow: none !important; }
+  }
+}
+
+@-moz-document url("chrome://messenger/content/messenger.xhtml") {
+  @media screen and (prefers-color-scheme: light) and (forced-colors: none) {
+    #unifiedToolbar :is(button, toolbarbutton), #titlebar .titlebar-button,
+    #tabs-toolbar .tabmail-tab:not([selected="true"]):not([visuallyselected="true"]) {
+      color: #f6fafc !important;
+      text-shadow: 0 1px 3px rgba(0,0,0,.85) !important;
+      --toolbarbutton-icon-fill: currentColor !important;
+    }
+    #tabs-toolbar .tabmail-tab:is([selected="true"], [visuallyselected="true"]),
+    #tabs-toolbar .tabmail-tab:is([selected="true"], [visuallyselected="true"]) .tab-background {
+      background: rgba(246,252,249,.86) !important;
+      color: #20292d !important;
+      box-shadow: inset 0 2px #126a70 !important;
+      text-shadow: none !important;
+    }
   }
 }
