@@ -1,7 +1,15 @@
-/* 0BSD. Only bundled styles and application-page URI classification. */
+/* 0BSD. Bundled styles, utility-page classification, and first-install theme. */
 var { ExtensionSupport } = ChromeUtils.importESModule("resource:///modules/ExtensionSupport.sys.mjs");
+var { AddonManager } = ChromeUtils.importESModule("resource://gre/modules/AddonManager.sys.mjs");
 var vesperwingStyles = class extends ExtensionAPI {
   onStartup() {
+    // Use Thunderbird's normal theme activation. Updates, re-enabling, and
+    // restarts preserve the user's subsequent choice of Light/System/other.
+    if (this.extension.startupReason === "ADDON_INSTALL") {
+      AddonManager.getAddonByID("thunderbird-compact-dark@mozilla.org")
+        .then(theme => theme?.enable())
+        .catch(error => console.error("Vesperwing first-install theme:", error));
+    }
     this.sheetService = Cc["@mozilla.org/content/style-sheet-service;1"]
       .getService(Ci.nsIStyleSheetService);
     this.registeredSheets = [];
