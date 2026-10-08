@@ -42,3 +42,16 @@ Remaining: complex authored/received HTML and quoted content, uninstall cleanup,
 - Primary profile updated to 0.2.1 and restarted. Add-ons switches visibly have teal tracks and white round thumbs; enabled extension/version confirmed by accessibility output.
 - New installs request the built-in Dark theme through AddonManager when startupReason is ADDON_INSTALL. Updates/restarts do not change the chosen theme. This new-install path is source-reviewed, not yet exercised as a fresh installation.
 - Follow-up: user requested square switch tracks and a modest further reduction in light opacity. Reader opacity is now 54%, light sidebar 60%, and the color wash and bars are less opaque. These final adjustments were packaged; no additional runtime checks were requested.
+
+## Final refinement 0.2.11 — 2026-10-08
+
+Computer-use review in Thunderbird 157.0.1 on KDE Wayland, using the fictional three-column profile and the built extension:
+
+- Light and Dark mail, Settings, Add-ons, and separate compose windows were visually checked and captured. Reader/editor glass remains visible; fictional compose recipient, subject, body entry and caret worked. The draft was discarded without saving or sending.
+- Light's toolbar background now stops at the visible Spaces rail. Hiding the rail restores a full-width toolbar fill; the visible rail was checked again after restart. The native width token replaces a fixed pixel assumption. RTL and alternate density/DPI behavior were source-reviewed, not exercised.
+- Active tabs have a restrained accent seam; focused inbox rows have a stronger outline. Compose selection now declares a foreground as well as a background color.
+- Utility frame opacity is 82%, slightly stronger than 78%, while retaining transparency. Removing frame blending exposed Thunderbird's opaque underlying canvas, so blending was retained. Mail reader opacity (Dark 78%, Light 54%) and compose opacity (76%) are unchanged.
+- Dark print preview has legible controls and opaque paper. It was cancelled without printing or exporting.
+- Screenshots contain only fictional mail and example.invalid addresses. Dark leads the gallery; Light utility images remain available.
+
+This is visual/runtime coverage of the surfaces above, not exhaustive acceptance. Complex HTML/quotes, RTL/density combinations, OS accessibility settings, fresh-install Dark selection and uninstall cleanup were not newly exercised. Native window decorations and OS dialogs remain controlled by KDE.
