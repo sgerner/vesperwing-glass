@@ -40,6 +40,11 @@
       background: light-dark(rgba(244,243,239,.56), rgba(12,23,32,.46)) !important;
       border-color: var(--border-color) !important;
     }
+    /* Native switch thumbs otherwise inherit our transparent canvas token. */
+    moz-toggle {
+      --toggle-dot-background-color-on-pressed: light-dark(#faf9f6, #14222c) !important;
+      --toggle-border-radius: 0 !important;
+    }
     #main > addon-list > section, addon-list > section,
     addon-card > .addon.card, .addon-card-collapsed {
       background: var(--background-color-box) !important;
