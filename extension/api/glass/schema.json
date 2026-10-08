@@ -1,0 +1,7 @@
+[
+  {
+    "namespace": "vesperwingStyles",
+    "description": "Lifecycle-only registration of two bundled, document-scoped interface stylesheets.",
+    "functions": []
+  }
+]

@@ -87,3 +87,13 @@ Reduced-transparency and forced-color rules provide more solid surfaces. Thunder
 ## License
 
 [0BSD](LICENSE): use, modify and redistribute freely, including commercially. Thunderbird and KDE names belong to their respective owners.
+
+## Optional extension candidate
+
+A separate extension can deliver the same two stylesheets without profile modifications, using a privileged Experiment. A buildable **0.1.0 development candidate** is included; it has not yet passed standalone runtime acceptance checks. It follows your selected Light/Dark theme and removes its registered sheets when disabled. Read [feasibility, permissions and submission notes](docs/extension-feasibility.md) before using it.
+
+```sh
+python3 build_extension.py
+```
+
+The GitHub installer remains the established distribution. The extension requires Thunderbird's unrestricted-access permission and manual add-on review; it is not submitted to Thunderbird Add-ons yet.
