@@ -17,9 +17,9 @@ These previews use a separate profile with fictional messages and no real accoun
 ## Install the extension (recommended)
 
 1. Build with `python3 build_extension.py`, or download the extension XPI from [Releases](https://github.com/sgerner/vesperwing-glass/releases).
-2. Open **Add-ons and Themes → Extensions → gear → Install Add-on From File** and select `vesperwing-glass-extension-0.2.0.xpi`.
+2. Open **Add-ons and Themes → Extensions → gear → Install Add-on From File** and select `vesperwing-glass-extension-0.2.1.xpi`.
 3. Review the unrestricted-access permission required by Thunderbird Experiments. The bundled implementation registers styles and identifies application tabs; it collects no data and does not read mail or contact the network.
-4. Choose Thunderbird's built-in **Light** or **Dark** theme. Configure KDE blur below.
+4. New installations select Thunderbird's built-in **Dark** theme once. You can then choose **Light**, **Dark**, or another theme; updates and restarts preserve your choice. Configure KDE blur below.
 
 Disable the extension to restore the native appearance. No advanced configuration preference is required. Tested on Thunderbird 157.0.1; other major versions are deliberately excluded.
 
@@ -109,3 +109,7 @@ Reduced-transparency and forced-color rules provide more solid surfaces. Thunder
 ## Extension status
 
 Version 0.2.0 was exercised with legacy stylesheet loading disabled: light/dark mail, translucent Settings/Add-ons, separate light compose editing and opaque print paper. See [runtime checks and remaining gaps](docs/runtime-test.md). This uses a privileged Experiment and requires manual Thunderbird Add-ons review; it has not been submitted or approved there.
+
+### Light glass and color backdrops
+
+Version 0.2.1 adds a translucent teal/lilac/blue base wash to Light mode, coordinated light title/status bars, and a lighter message canvas (54% reader-frame opacity with an 18% surface underneath). It supplies some color over a black window without installing a separate theme. The real desktop backdrop still influences the result. Dark surfaces retain their existing palette. Switch tracks and thumbs use square edges, with opaque white thumbs for clear state visibility.
