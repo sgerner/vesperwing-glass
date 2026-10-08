@@ -1,0 +1,96 @@
+/* Preferences stay bright enough for long sessions while retaining the glass backdrop. */
+@-moz-document url-prefix("about:preferences"), url("chrome://messenger/content/preferences/preferences.xhtml") {
+  @media screen and (forced-colors: none) {
+    :root#MailPreferences { background: transparent !important; color-scheme: light dark !important; }
+    #MailPreferences > body, #preferences-stack, #prefBox { background: transparent !important; }
+    #pref-category-box {
+      background: light-dark(rgba(244,243,239,.56), rgba(12,23,32,.44)) !important;
+      border-inline-end: 1px solid light-dark(rgba(48,53,56,.16), rgba(181,214,230,.26)) !important;
+    }
+    #preferencesContainer {
+      background: light-dark(rgba(250,249,246,.70), rgba(14,24,32,.72)) !important;
+      color: light-dark(#25292b, #f6fafc) !important;
+    }
+  }
+  @media (prefers-reduced-transparency: reduce), (forced-colors: active) {
+    :root#MailPreferences, #preferencesContainer, #pref-category-box { background: Canvas !important; color: CanvasText !important; }
+  }
+}
+
+/* The Add-ons Manager is a separate content page, not part of about:preferences. */
+@-moz-document url-prefix("chrome://mozapps/content/extensions/aboutaddons.html"), url-prefix("about:addons") {
+  @media screen and (forced-colors: none) {
+    :root {
+      color-scheme: light dark !important;
+      --background-color-canvas: transparent !important;
+      --background-color-box: light-dark(rgba(250,249,246,.62), rgba(14,24,32,.62)) !important;
+      --background-color-box-info: light-dark(rgba(244,243,239,.54), rgba(22,36,47,.54)) !important;
+      --text-color: light-dark(#25292b, #f6fafc) !important;
+      --text-color-deemphasized: light-dark(#485156, #d5e2e9) !important;
+      --border-color: light-dark(rgba(48,53,56,.16), rgba(181,214,230,.26)) !important;
+      --button-background-color-primary: light-dark(#0b6078, #9be1ef) !important;
+      --button-text-color-primary: light-dark(#fff, #25292b) !important;
+    }
+    html, body, #full, #content, #main, addon-manager,
+    .sticky-container, .main-search, .main-heading {
+      background: transparent !important;
+      background-image: none !important;
+    }
+    #sidebar {
+      background: light-dark(rgba(244,243,239,.56), rgba(12,23,32,.46)) !important;
+      border-color: var(--border-color) !important;
+    }
+    #main > addon-list > section, addon-list > section,
+    addon-card > .addon.card, .addon-card-collapsed {
+      background: var(--background-color-box) !important;
+      border: 1px solid var(--border-color) !important;
+      border-radius: 10px !important;
+      box-shadow: none !important;
+    }
+  }
+  @media (prefers-reduced-transparency: reduce), (forced-colors: active) {
+    :root, html, body, #full, #content, #main, #sidebar, addon-manager,
+    .sticky-container, .main-search, .main-heading, addon-card > .addon.card {
+      --background-color-canvas: Canvas !important;
+      --background-color-box: Canvas !important;
+      background: Canvas !important;
+      color: CanvasText !important;
+    }
+  }
+}
+
+/* The editor frame blends at 88% in userChrome.css. Give it a predictable
+ * canvas here: fading this isolated frame exposes glass without a privileged
+ * script or changing the background stored in the authored message. */
+@-moz-document url("about:blank?compose") {
+  @media screen and (forced-colors: none) {
+    :root, html, body {
+      color-scheme: light dark !important;
+      background-color: light-dark(#faf9f6, #14222c) !important;
+    }
+    body { background: transparent !important; }
+    body, body[contenteditable="true"] {
+      color: light-dark(#25292b, #f6fafc) !important;
+      caret-color: light-dark(#07566d, #9be1ef) !important;
+    }
+    ::selection {
+      background: light-dark(rgba(32,125,151,.32), rgba(86,166,190,.48)) !important;
+    }
+  }
+  @media (prefers-reduced-transparency: reduce), (forced-colors: active) {
+    html, body { background: Canvas !important; color: CanvasText !important; }
+  }
+  @media print {
+    html, body { background: white !important; color: black !important; }
+  }
+}
+
+/* Print preview controls get glass; the preview paper and printed output stay native. */
+@-moz-document url("chrome://global/content/print.html") {
+  @media screen and (forced-colors: none) {
+    :root, body { background: light-dark(rgba(250,249,246,.62),rgba(18,29,38,.74)) !important; }
+  }
+  @media (prefers-reduced-transparency: reduce), (forced-colors: active) {
+    :root, body { background: Canvas !important; }
+  }
+}
