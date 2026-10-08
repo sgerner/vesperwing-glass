@@ -44,7 +44,7 @@
     addon-card > .addon.card, .addon-card-collapsed {
       background: var(--background-color-box) !important;
       border: 1px solid var(--border-color) !important;
-      border-radius: 10px !important;
+      border-radius: 0;
       box-shadow: none !important;
     }
   }
@@ -59,7 +59,7 @@
   }
 }
 
-/* The editor frame blends at 88% in userChrome.css. Give it a predictable
+/* The editor frame blends at 76% in userChrome.css. Give it a predictable
  * canvas here: fading this isolated frame exposes glass without a privileged
  * script or changing the background stored in the authored message. */
 @-moz-document url("about:blank?compose") {
@@ -92,5 +92,29 @@
   }
   @media (prefers-reduced-transparency: reduce), (forced-colors: active) {
     :root, body { background: Canvas !important; }
+  }
+}
+
+/* Straight-edged utility controls; preserve radio/check shapes as affordances. */
+@-moz-document url-prefix("about:preferences"), url("chrome://messenger/content/preferences/preferences.xhtml"), url-prefix("about:addons"), url-prefix("chrome://mozapps/content/extensions/aboutaddons.html"), url("chrome://global/content/print.html") {
+  @media screen and (forced-colors: none) {
+    :root {
+      --border-radius-small: 0 !important;
+      --border-radius-medium: 0 !important;
+      --border-radius-large: 0 !important;
+      --button-border-radius: 0 !important;
+    }
+    button, input:not([type="radio"]):not([type="checkbox"]), select,
+    menulist, .category, .card, .addon, .addon-card-collapsed,
+    .category[selected], radio, .radio-check, .view-style-item,
+    .sync-panel, .qr-panel, .qr-subpanel, .info-box-container,
+    .updateSettingCrossUserWarningContainer, #handlersView {
+      border-radius: 0 !important;
+    }
+    button:not(.primary):not(:hover):not(:active) {
+      background-color: transparent !important;
+      border-color: light-dark(rgba(35,49,55,.25), rgba(181,214,230,.28)) !important;
+      box-shadow: none !important;
+    }
   }
 }
