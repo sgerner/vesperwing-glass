@@ -1,0 +1,61 @@
+/* Optional Thunderbird Conversations integration. Its chrome namespace is
+ * registered by Conversations itself; no dependency or mail access is needed.
+ * The outer reader frame supplies transparency, preserving sender HTML. */
+@-moz-document url-prefix("about:3pane"), url("chrome://messenger/content/about3Pane.xhtml"), url("chrome://messenger/content/messageWindow.xhtml") {
+  @media screen and (forced-colors: none) {
+    #multiMessageBrowser { background: transparent !important; opacity: .78 !important; }
+    @media (prefers-color-scheme: light) {
+      #multiMessageBrowser { opacity: .64 !important; }
+    }
+  }
+  @media (prefers-reduced-transparency: reduce), (forced-colors: active), print {
+    #multiMessageBrowser { opacity: 1 !important; }
+  }
+}
+@-moz-document url-prefix("chrome://conversations/content/experiment-api/stub.html"), url-prefix("chrome://conversations/content/content/standalone.html") {
+  @media screen and (forced-colors: none) {
+    :root {
+      color-scheme: light dark !important;
+      --application-background-color: transparent !important;
+      --application-foreground-color: light-dark(#25292b, #f6fafc) !important;
+      --dull-foreground-color: light-dark(#485156, #d5e2e9) !important;
+      --email-address-dull-color: light-dark(#485156, #d5e2e9) !important;
+      --border-color: light-dark(rgba(48,53,56,.20), rgba(181,214,230,.26)) !important;
+      --vg-conversation-surface: light-dark(rgba(242,248,247,.18), rgba(14,24,32,.46));
+    }
+    html, body, #conversationWrapper, #messageList {
+      background: transparent !important;
+      color: var(--application-foreground-color) !important;
+    }
+    .message {
+      background: var(--vg-conversation-surface) !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
+    }
+    .conversationHeaderWrapper { box-shadow: none !important; }
+    .conversationHeader {
+      background: light-dark(rgba(244,243,239,.42), rgba(12,23,32,.64)) !important;
+      color: var(--application-foreground-color) !important;
+    }
+    /* Avoid compounding opacity on the nested message frames. */
+    .message iframe[class^="convIframe"] { opacity: 1 !important; }
+    .message:focus-visible {
+      outline: 2px solid light-dark(#07566d, #9be1ef) !important;
+      outline-offset: 2px;
+    }
+  }
+  @media (prefers-reduced-transparency: reduce), (forced-colors: active) {
+    html, body, #conversationWrapper, .message, .conversationHeader {
+      background: Canvas !important;
+      color: CanvasText !important;
+    }
+    .message iframe[class^="convIframe"] { opacity: 1 !important; }
+  }
+  @media print {
+    html, body, #conversationWrapper, .message, .conversationHeader {
+      background: white !important;
+      color: black !important;
+    }
+    .message iframe[class^="convIframe"] { opacity: 1 !important; }
+  }
+}

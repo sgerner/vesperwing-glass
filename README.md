@@ -1,6 +1,6 @@
 # Vesperwing Glass for Thunderbird
 
-Transparent pearl and midnight surfaces, teal accents, readable inbox cards, and a clear toolbar/status bar. Built for Thunderbird 157 on Kubuntu / KDE Plasma. Extension version 0.2.11 delivers the full appearance without profile stylesheets. A backup-aware CSS installer is also available.
+Transparent pearl and midnight surfaces, teal accents, readable inbox cards, and a clear toolbar/status bar. Built for Thunderbird 157 on Kubuntu / KDE Plasma. Extension version 0.2.13 delivers the full appearance without profile stylesheets. A backup-aware CSS installer is also available.
 
 ## Preview
 
@@ -32,9 +32,11 @@ These previews use a separate profile with fictional messages and no real accoun
 ## Install the extension (recommended)
 
 1. Build with `python3 build_extension.py`, or download the extension XPI from [Releases](https://github.com/sgerner/vesperwing-glass/releases).
-2. Open **Add-ons and Themes → Extensions → gear → Install Add-on From File** and select `vesperwing-glass-extension-0.2.11.xpi`.
+2. Open **Add-ons and Themes → Extensions → gear → Install Add-on From File** and select `vesperwing-glass-extension-0.2.13.xpi`.
 3. Review the unrestricted-access permission required by Thunderbird Experiments. The bundled implementation registers styles and identifies application tabs; it collects no data and does not read mail or contact the network.
 4. New installations select Thunderbird's built-in **Dark** theme once. You can then choose **Light**, **Dark**, or another theme; updates and restarts preserve your choice. Configure KDE blur below.
+
+Thunderbird Conversations is supported with a translucent conversation reader and square message cards. Email HTML remains intact; frame blending also gently fades text and images. Printing and reduced-transparency modes restore full opacity.
 
 Disable the extension to restore the native appearance. No advanced configuration preference is required. Tested on Thunderbird 157.0.1; other major versions are deliberately excluded.
 
@@ -110,7 +112,7 @@ Bug reports, accessibility feedback, screenshots and focused pull requests are w
 
 1. Fork this repository and clone your fork. Create a branch for one change.
 2. Edit `styles/glass.css` for application chrome or `styles/content.css` for internal pages. Both installation methods share these files. Extension lifecycle code lives in `extension/api/glass/implementation.js`.
-3. Run `python3 build_extension.py` with Python 3; no third-party dependencies are needed. Install the resulting `dist/vesperwing-glass-extension-0.2.11.xpi` in a separate Thunderbird 157 profile, with legacy profile CSS disabled.
+3. Run `python3 build_extension.py` with Python 3; no third-party dependencies are needed. Install the resulting `dist/vesperwing-glass-extension-0.2.13.xpi` in a separate Thunderbird 157 profile, with legacy profile CSS disabled.
 4. Check Light and Dark over colorful and near-black backdrops, narrow/wide panes, inbox selection and focus, Settings/Add-ons switches, compose editing, HTML/quoted mail, and print preview. Include reduced-transparency/forced-color checks when relevant. Keep printed paper opaque and text readable.
 5. Open a focused PR with the reason for the change, before/after screenshots, Thunderbird/Plasma versions and the checks you actually performed. Note untested cases. Do not broaden version compatibility without evidence.
 
@@ -131,4 +133,4 @@ Use fictional mail and `example.invalid` addresses for screenshots. Never upload
 
 ## Extension status
 
-Version 0.2.11 targets Thunderbird 157.*. New installations select Thunderbird's built-in Dark theme once; later theme choices persist across updates and restarts. The extension follows Thunderbird's Light or Dark theme, with translucent pearl surfaces in Light and midnight surfaces in Dark. See [runtime checks and remaining gaps](docs/runtime-test.md) for versioned test history and acceptance gaps.
+Version 0.2.13 targets Thunderbird 157.*. New installations select Thunderbird's built-in Dark theme once; later theme choices persist across updates and restarts. The extension follows Thunderbird's Light or Dark theme, with translucent pearl surfaces in Light and midnight surfaces in Dark. See [runtime checks and remaining gaps](docs/runtime-test.md) for versioned test history and acceptance gaps.
