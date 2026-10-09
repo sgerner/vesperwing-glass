@@ -14,7 +14,7 @@ var vesperwingStyles = class extends ExtensionAPI {
       .getService(Ci.nsIStyleSheetService);
     this.registeredSheets = [];
     try {
-      for (const file of ["styles/glass.css", "styles/content.css"]) {
+      for (const file of ["styles/glass.css", "styles/content.css", "styles/conversations.css"]) {
         const uri = Services.io.newURI(this.extension.rootURI.resolve(file));
         // Only remember sheets owned by this instance, for precise cleanup.
         if (!this.sheetService.sheetRegistered(uri, this.sheetService.USER_SHEET)) {

@@ -237,7 +237,7 @@
       outline-offset: 2px !important;
     }
     /* One glass layer; nested wrappers must not stack their opacity. */
-    #messagePane, #messagepane, #messagepaneboxwrapper { background: transparent !important; }
+    #messagePane, #messagepane, #messagepaneboxwrapper, #multiMessageBrowser { background: transparent !important; }
     #messagepanebox { background: var(--ag-message) !important; color: var(--ag-ink) !important; }
     /* Gecko can paint an opaque mail canvas. Blend only the reader frame;
      * this also fades text/images, so accessibility and print restore opacity. */
