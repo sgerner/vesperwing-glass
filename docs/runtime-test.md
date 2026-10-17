@@ -55,3 +55,28 @@ Computer-use review in Thunderbird 157.0.1 on KDE Wayland, using the fictional t
 - Screenshots contain only fictional mail and example.invalid addresses. Dark leads the gallery; Light utility images remain available.
 
 This is visual/runtime coverage of the surfaces above, not exhaustive acceptance. Complex HTML/quotes, RTL/density combinations, OS accessibility settings, fresh-install Dark selection and uninstall cleanup were not newly exercised. Native window decorations and OS dialogs remain controlled by KDE.
+
+
+## 0.2.14 — Thunderbird 158.0 compatibility (2026-10-16)
+
+The existing 0.2.13 installation in the primary profile was disabled by its
+`strict_max_version: "157.*"` manifest entry after upgrading Thunderbird to 158.0.
+Version 0.2.14 retains the 157.0 minimum and sets the maximum to `"*"`, removing
+the version-number cutoff for future upgrades without changing global
+compatibility preferences or extension permissions.
+
+Built with `python3 build_extension.py` and installed through the running
+Thunderbird Add-ons Manager using Install Add-on From File. Verified:
+
+- The incompatibility warning disappeared and version 0.2.14 is enabled.
+- Dark glass styling loaded immediately, including translucent Add-ons Manager
+  surfaces, title/tab bars, and the square enabled switch.
+- Profile extension metadata reports `active: true`, `userDisabled: false`,
+  `appDisabled: false`, and target maximum `*`.
+- Installed XPI SHA-256 matches the built package; ZIP integrity and bundled
+  manifest/styles match the repository sources.
+
+This was an in-place update smoke check. Light mode, compose, print, restart,
+and a simulated future Thunderbird upgrade were not retested in this session.
+Future API or markup changes can still require fixes; an open version range
+does not guarantee runtime compatibility with versions that do not yet exist.
