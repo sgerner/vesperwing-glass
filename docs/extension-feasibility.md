@@ -26,7 +26,7 @@ python3 build_extension.py
 
 Output for version 0.2.11: `dist/vesperwing-glass-extension-0.2.11.xpi`.
 
-The runtime report records historical checks by version; it does not establish that version 0.2.11 has been exercised. Before evaluating a build, restore the profile CSS installation, then install the XPI through Add-ons and Themes → Install Add-on From File. Do not layer both methods when checking extension coverage. The package deliberately targets only Thunderbird 157.* until other versions are assessed.
+The runtime report records historical checks by version; it does not establish that version 0.2.11 has been exercised. Before evaluating a build, restore the profile CSS installation, then install the XPI through Add-ons and Themes → Install Add-on From File. Do not layer both methods when checking extension coverage. Since 0.2.14, the package accepts Thunderbird 157.0 and later with an explicit wildcard upper limit. This avoids disabling on major-version upgrades; future internal API and markup changes may still require maintenance.
 
 Experiments receive Thunderbird's **full, unrestricted access to Thunderbird and your computer** permission. Our implementation does not read messages, access the network, or write profile files. A new installation selects the built-in Dark theme once; updates and restarts preserve the user's later choice. Thunderbird cannot express a narrower permission for this mechanism. A user must decide whether to trust the add-on before installing.
 
